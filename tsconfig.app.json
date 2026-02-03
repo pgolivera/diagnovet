@@ -26,7 +26,8 @@
       "@types/*": ["./src/types/*"],
       "@services/*": ["./src/services/*"],
       "@hooks/*": ["./src/hooks/*"],
-      "@assets/*": ["./src/assets/*"]
+      "@assets/*": ["./src/assets/*"],
+      "@data/*": ["./src/data/*"]
     }
   },
   "include": ["src"]
