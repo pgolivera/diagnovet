@@ -1,18 +1,27 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("Home Page (Development Mode)", () => {
-  test("should display the development content", async ({ page }) => {
+test.describe("Dashboard Page", () => {
+  test("should display the dashboard content", async ({ page }) => {
     await page.goto("/");
-    await expect(page.locator("h1")).toContainText("Diagnovet");
+    await expect(page.getByRole("heading", { name: "Dashboard" })).toBeVisible();
   });
 
   test("should have correct page title", async ({ page }) => {
     await page.goto("/");
-    await expect(page).toHaveTitle(/Home/);
+    await expect(page).toHaveTitle(/Dashboard/);
   });
 
-  test("should show development mode hint", async ({ page }) => {
+  test("should display navigation header", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByText(/only visible in development mode/)).toBeVisible();
+    await expect(page.getByText("DiagnoVet")).toBeVisible();
+    await expect(page.getByRole("link", { name: "Dashboard" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Viewer" })).toBeVisible();
+  });
+
+  test("should navigate to viewer page", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("link", { name: "Viewer" }).click();
+    await expect(page).toHaveURL("/viewer");
+    await expect(page).toHaveTitle(/Viewer/);
   });
 });
