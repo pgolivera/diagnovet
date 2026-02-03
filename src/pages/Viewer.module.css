@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  gap: var(--spacing-md);
+  width: 100%;
+  height: calc(100vh - 120px);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+  flex-shrink: 0;
+}
+
+.thumbnailList {
+  height: 100%;
+}
+
+.mainArea {
+  display: flex;
+  flex: 1;
+}
+
+.imageViewer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imageContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  flex-shrink: 0;
+}
+
+.dataPanel {
+  height: 100%;
+}
