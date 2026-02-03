@@ -2,23 +2,28 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
+import { ThemeProvider } from "@mui/material";
+import theme from "./theme";
 import App from "./App";
 
 const renderApp = () => {
   return render(
-    <HelmetProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </HelmetProvider>
+    <ThemeProvider theme={theme}>
+      <HelmetProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </HelmetProvider>
+    </ThemeProvider>
   );
 };
 
 describe("App", () => {
-  it("renders home page in development mode", () => {
+  it("renders dashboard in development mode", () => {
     vi.stubEnv("NODE_ENV", "development");
     renderApp();
-    expect(screen.getByText("Diagnovet")).toBeInTheDocument();
+    expect(screen.getByText("DiagnoVet")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Dashboard" })).toBeInTheDocument();
   });
 
   it("renders work in progress in production mode", () => {
