@@ -13,6 +13,15 @@ export default defineConfig({
       "@utils": path.resolve(__dirname, "./src/utils"),
       "@styles": path.resolve(__dirname, "./src/styles"),
       "@types": path.resolve(__dirname, "./src/types"),
+      "@services": path.resolve(__dirname, "./src/services"),
+      "@hooks": path.resolve(__dirname, "./src/hooks"),
+      "@assets": path.resolve(__dirname, "./src/assets"),
+    },
+  },
+  css: {
+    modules: {
+      generateScopedName: "dv-[name]__[local]--[hash:base64:5]",
+      localsConvention: "camelCase",
     },
   },
   server: {
