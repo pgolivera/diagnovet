@@ -36,3 +36,4 @@ report/
 # Misc
 *.tgz
 .cache/
+.claude/
