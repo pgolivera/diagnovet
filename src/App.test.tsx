@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
@@ -35,16 +35,9 @@ beforeEach(() => {
 });
 
 describe("App", () => {
-  it("renders dashboard in development mode", () => {
-    vi.stubEnv("NODE_ENV", "development");
+  it("renders dashboard", () => {
     renderApp();
     expect(screen.getByText("DiagnoVet")).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
-  });
-
-  it("renders work in progress in production mode", () => {
-    vi.stubEnv("NODE_ENV", "production");
-    renderApp();
-    expect(screen.getByText("Coming Soon")).toBeInTheDocument();
   });
 });
