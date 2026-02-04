@@ -1,14 +1,15 @@
 name: Deploy to S3
 
-on: [workflow_dispatch]
+on: workflow_dispatch
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build:
-    runs-on: [self-hosted, standard]
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
     timeout-minutes: 20
 
     steps:
