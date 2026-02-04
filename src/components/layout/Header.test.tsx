@@ -1,20 +1,19 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { ThemeProvider } from "@mui/material";
+import { AppThemeProvider } from "@/theme/ThemeContext";
 import { LanguageProvider } from "@i18n";
-import theme from "@/theme";
 import Header from "./Header";
 
 const renderHeader = (initialRoute = "/") => {
   return render(
-    <ThemeProvider theme={theme}>
+    <AppThemeProvider>
       <LanguageProvider>
         <MemoryRouter initialEntries={[initialRoute]}>
           <Header />
         </MemoryRouter>
       </LanguageProvider>
-    </ThemeProvider>
+    </AppThemeProvider>
   );
 };
 
@@ -38,6 +37,12 @@ describe("Header", () => {
     expect(screen.getByRole("button", { name: /ES/i })).toBeInTheDocument();
   });
 
+  it("renders the theme toggle button", () => {
+    renderHeader();
+
+    expect(screen.getByRole("button", { name: /dark mode|light mode/i })).toBeInTheDocument();
+  });
+
   it("dashboard link points to root", () => {
     renderHeader();
 
@@ -56,15 +61,15 @@ describe("Header", () => {
     renderHeader("/");
 
     const dashboardLink = screen.getByRole("link", { name: /panel|dashboard/i });
-
-    expect(dashboardLink).toHaveStyle({ color: "rgb(79, 172, 254)" });
+    // Green color in light theme: #2e7d32 = rgb(46, 125, 50)
+    expect(dashboardLink).toHaveStyle({ color: "rgb(46, 125, 50)" });
   });
 
   it("highlights viewer when on viewer page", () => {
     renderHeader("/viewer");
 
     const viewerLink = screen.getByRole("link", { name: /visor|viewer/i });
-
-    expect(viewerLink).toHaveStyle({ color: "rgb(79, 172, 254)" });
+    // Green color in light theme: #2e7d32 = rgb(46, 125, 50)
+    expect(viewerLink).toHaveStyle({ color: "rgb(46, 125, 50)" });
   });
 });

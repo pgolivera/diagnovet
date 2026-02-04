@@ -2,9 +2,8 @@ import type { ReactNode } from "react";
 import { render, type RenderOptions } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import { ThemeProvider } from "@mui/material";
+import { AppThemeProvider } from "./theme/ThemeContext";
 import { LanguageProvider } from "@i18n";
-import theme from "./theme";
 
 interface WrapperProps {
   children: ReactNode;
@@ -12,21 +11,21 @@ interface WrapperProps {
 
 function AllProviders({ children }: WrapperProps) {
   return (
-    <ThemeProvider theme={theme}>
+    <AppThemeProvider>
       <LanguageProvider>
         <HelmetProvider>
           <BrowserRouter>{children}</BrowserRouter>
         </HelmetProvider>
       </LanguageProvider>
-    </ThemeProvider>
+    </AppThemeProvider>
   );
 }
 
 function ProvidersWithMemoryRouter({ children }: WrapperProps) {
   return (
-    <ThemeProvider theme={theme}>
+    <AppThemeProvider>
       <LanguageProvider>{children}</LanguageProvider>
-    </ThemeProvider>
+    </AppThemeProvider>
   );
 }
 

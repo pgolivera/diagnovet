@@ -2,14 +2,13 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import { ThemeProvider } from "@mui/material";
+import { AppThemeProvider } from "./theme/ThemeContext";
 import { LanguageProvider } from "@i18n";
-import theme from "./theme";
 import App from "./App";
 
 const renderApp = () => {
   return render(
-    <ThemeProvider theme={theme}>
+    <AppThemeProvider>
       <LanguageProvider>
         <HelmetProvider>
           <BrowserRouter>
@@ -17,7 +16,7 @@ const renderApp = () => {
           </BrowserRouter>
         </HelmetProvider>
       </LanguageProvider>
-    </ThemeProvider>
+    </AppThemeProvider>
   );
 };
 

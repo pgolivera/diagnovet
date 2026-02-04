@@ -1,6 +1,10 @@
-import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
+import { AppBar, Toolbar, Typography, Box, Button, IconButton, Tooltip } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import PetsIcon from "@mui/icons-material/Pets";
 import { useLanguage } from "@i18n";
+import { useThemeMode } from "@/theme/ThemeContext";
 import LanguageSelector from "./LanguageSelector";
 import styles from "./Header.module.css";
 
@@ -17,13 +21,25 @@ const navItems: NavItem[] = [
 export default function Header() {
   const location = useLocation();
   const { t } = useLanguage();
+  const { mode, toggleTheme } = useThemeMode();
 
   return (
-    <AppBar position="static" className={styles.header}>
+    <AppBar
+      position="static"
+      className={styles.header}
+      sx={{
+        bgcolor: "background.paper",
+        color: "text.primary",
+        boxShadow: 1,
+      }}
+    >
       <Toolbar className={styles.toolbar}>
-        <Typography variant="h6" component="div" className={styles.logo}>
-          DiagnoVet
-        </Typography>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <PetsIcon sx={{ color: "primary.main", fontSize: 28 }} />
+          <Typography variant="h6" component="div" sx={{ fontWeight: 700, color: "primary.main" }}>
+            DiagnoVet
+          </Typography>
+        </Box>
 
         <Box className={styles.nav}>
           {navItems.map((item) => (
@@ -37,6 +53,9 @@ export default function Header() {
                 borderBottom: location.pathname === item.path ? 2 : 0,
                 borderColor: "primary.main",
                 borderRadius: 0,
+                "&:hover": {
+                  bgcolor: "action.hover",
+                },
               }}
             >
               {t(item.labelKey)}
@@ -45,6 +64,11 @@ export default function Header() {
         </Box>
 
         <Box className={styles.actions}>
+          <Tooltip title={mode === "light" ? "Dark mode" : "Light mode"}>
+            <IconButton onClick={toggleTheme} size="small" sx={{ color: "text.secondary" }}>
+              {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+            </IconButton>
+          </Tooltip>
           <LanguageSelector />
         </Box>
       </Toolbar>
