@@ -1,16 +1,11 @@
 .header {
-  background-color: var(--color-bg-secondary);
+  /* Colors handled by MUI sx prop */
 }
 
 .toolbar {
   display: flex;
   justify-content: space-between;
   padding: 0 var(--spacing-lg);
-}
-
-.logo {
-  font-weight: var(--font-weight-bold);
-  color: var(--color-accent);
 }
 
 .nav {

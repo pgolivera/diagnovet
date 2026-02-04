@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme, type Theme } from "@mui/material/styles";
 
 declare module "@mui/material/styles" {
   interface Palette {
@@ -17,45 +17,7 @@ declare module "@mui/material/styles" {
   }
 }
 
-const theme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#4facfe",
-      light: "#00f2fe",
-      dark: "#0f3460",
-    },
-    secondary: {
-      main: "#00f2fe",
-      light: "#33f4fe",
-      dark: "#00a9b2",
-    },
-    background: {
-      default: "#1a1a2e",
-      paper: "#16213e",
-    },
-    text: {
-      primary: "#ffffff",
-      secondary: "rgba(255, 255, 255, 0.7)",
-    },
-    success: {
-      main: "#10b981",
-    },
-    warning: {
-      main: "#f59e0b",
-    },
-    error: {
-      main: "#ef4444",
-    },
-    info: {
-      main: "#3b82f6",
-    },
-    veterinary: {
-      main: "#4facfe",
-      light: "#00f2fe",
-      dark: "#0f3460",
-    },
-  },
+const commonSettings = {
   typography: {
     fontFamily: [
       "-apple-system",
@@ -77,7 +39,7 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: "none",
+          textTransform: "none" as const,
           fontWeight: 500,
         },
       },
@@ -90,6 +52,90 @@ const theme = createTheme({
       },
     },
   },
+};
+
+// Veterinary green color
+const veterinaryGreen = {
+  main: "#2e7d32",
+  light: "#4caf50",
+  dark: "#1b5e20",
+};
+
+export const lightTheme: Theme = createTheme({
+  ...commonSettings,
+  palette: {
+    mode: "light",
+    primary: veterinaryGreen,
+    secondary: {
+      main: "#00897b",
+      light: "#4db6ac",
+      dark: "#00695c",
+    },
+    background: {
+      default: "#f5f5f5",
+      paper: "#ffffff",
+    },
+    text: {
+      primary: "#1a1a1a",
+      secondary: "rgba(0, 0, 0, 0.6)",
+    },
+    success: {
+      main: "#2e7d32",
+    },
+    warning: {
+      main: "#ed6c02",
+    },
+    error: {
+      main: "#d32f2f",
+    },
+    info: {
+      main: "#0288d1",
+    },
+    veterinary: veterinaryGreen,
+  },
 });
 
-export default theme;
+export const darkTheme: Theme = createTheme({
+  ...commonSettings,
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#4caf50",
+      light: "#81c784",
+      dark: "#388e3c",
+    },
+    secondary: {
+      main: "#00f2fe",
+      light: "#33f4fe",
+      dark: "#00a9b2",
+    },
+    background: {
+      default: "#1a1a2e",
+      paper: "#16213e",
+    },
+    text: {
+      primary: "#ffffff",
+      secondary: "rgba(255, 255, 255, 0.7)",
+    },
+    success: {
+      main: "#4caf50",
+    },
+    warning: {
+      main: "#ff9800",
+    },
+    error: {
+      main: "#f44336",
+    },
+    info: {
+      main: "#29b6f6",
+    },
+    veterinary: {
+      main: "#4caf50",
+      light: "#81c784",
+      dark: "#388e3c",
+    },
+  },
+});
+
+// Default export for backwards compatibility
+export default lightTheme;
