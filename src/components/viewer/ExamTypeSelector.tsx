@@ -1,5 +1,6 @@
 import { FormControl, InputLabel, Select, MenuItem, type SelectChangeEvent } from "@mui/material";
 import type { ExamType } from "@/types";
+import { useLanguage } from "@i18n";
 
 interface ExamTypeSelectorProps {
   value: ExamType | "";
@@ -7,15 +8,11 @@ interface ExamTypeSelectorProps {
   disabled?: boolean;
 }
 
-const examTypes: { value: ExamType; label: string }[] = [
-  { value: "abdominal", label: "Abdominal" },
-  { value: "cervical", label: "Cervical" },
-  { value: "gestational", label: "Gestational" },
-  { value: "ocular", label: "Ocular" },
-  { value: "thoracic", label: "Thoracic" },
-];
+const examTypes: ExamType[] = ["abdominal", "cervical", "gestational", "ocular", "thoracic"];
 
 export default function ExamTypeSelector({ value, onChange, disabled = false }: ExamTypeSelectorProps) {
+  const { t } = useLanguage();
+
   const handleChange = (event: SelectChangeEvent<ExamType | "">) => {
     const newValue = event.target.value as ExamType;
     if (newValue) {
@@ -25,11 +22,17 @@ export default function ExamTypeSelector({ value, onChange, disabled = false }: 
 
   return (
     <FormControl fullWidth size="small" disabled={disabled}>
-      <InputLabel id="exam-type-label">Exam Type</InputLabel>
-      <Select labelId="exam-type-label" id="exam-type-select" value={value} label="Exam Type" onChange={handleChange}>
+      <InputLabel id="exam-type-label">{t("aiPanel.examType")}</InputLabel>
+      <Select
+        labelId="exam-type-label"
+        id="exam-type-select"
+        value={value}
+        label={t("aiPanel.examType")}
+        onChange={handleChange}
+      >
         {examTypes.map((type) => (
-          <MenuItem key={type.value} value={type.value}>
-            {type.label}
+          <MenuItem key={type} value={type}>
+            {t(`examType.${type}`)}
           </MenuItem>
         ))}
       </Select>

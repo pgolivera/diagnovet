@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Menu, MenuItem, Button } from "@mui/material";
 import LanguageIcon from "@mui/icons-material/Language";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-
-type Language = "es" | "en" | "pt";
+import { useLanguage, type Language } from "@i18n";
 
 interface LanguageOption {
   code: Language;
@@ -18,8 +17,8 @@ const languages: LanguageOption[] = [
 ];
 
 export default function LanguageSelector() {
+  const { language, setLanguage } = useLanguage();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [currentLanguage, setCurrentLanguage] = useState<Language>("es");
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -31,12 +30,11 @@ export default function LanguageSelector() {
   };
 
   const handleSelect = (code: Language) => {
-    setCurrentLanguage(code);
-    localStorage.setItem("diagnovet-language", code);
+    setLanguage(code);
     handleClose();
   };
 
-  const currentLang = languages.find((l) => l.code === currentLanguage);
+  const currentLang = languages.find((l) => l.code === language);
 
   return (
     <>
@@ -63,7 +61,7 @@ export default function LanguageSelector() {
         {languages.map((lang) => (
           <MenuItem
             key={lang.code}
-            selected={lang.code === currentLanguage}
+            selected={lang.code === language}
             onClick={() => handleSelect(lang.code)}
             sx={{ display: "flex", gap: 1 }}
           >

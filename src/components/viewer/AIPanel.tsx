@@ -3,6 +3,7 @@ import { Box, Card, CardContent, Typography, TextField, Button, Divider, Circula
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
 import type { ExamType, AIFinding } from "@/types";
+import { useLanguage } from "@i18n";
 import ExamTypeSelector from "./ExamTypeSelector";
 import styles from "./AIPanel.module.css";
 
@@ -12,6 +13,7 @@ interface AIPanelProps {
 }
 
 export default function AIPanel({ hasImages, onAnalyze }: AIPanelProps) {
+  const { t } = useLanguage();
   const [examType, setExamType] = useState<ExamType | "">("");
   const [observations, setObservations] = useState("");
   const [findings, setFindings] = useState<AIFinding[]>([]);
@@ -43,7 +45,7 @@ export default function AIPanel({ hasImages, onAnalyze }: AIPanelProps) {
         <Box className={styles.section}>
           <Box className={styles.sectionTitle}>
             <AnalyticsIcon fontSize="small" color="primary" />
-            <Typography variant="subtitle2">Exam Configuration</Typography>
+            <Typography variant="subtitle2">{t("aiPanel.examConfiguration")}</Typography>
           </Box>
           <ExamTypeSelector value={examType} onChange={setExamType} disabled={!hasImages} />
         </Box>
@@ -51,11 +53,11 @@ export default function AIPanel({ hasImages, onAnalyze }: AIPanelProps) {
         <Divider sx={{ my: 2 }} />
 
         <Box className={styles.section}>
-          <Typography variant="subtitle2">Initial Observations</Typography>
+          <Typography variant="subtitle2">{t("aiPanel.initialObservations")}</Typography>
           <TextField
             multiline
             rows={3}
-            placeholder="Enter initial observations..."
+            placeholder={t("aiPanel.enterObservations")}
             value={observations}
             onChange={(e) => setObservations(e.target.value)}
             fullWidth
@@ -72,7 +74,7 @@ export default function AIPanel({ hasImages, onAnalyze }: AIPanelProps) {
             onClick={handleAnalyze}
             disabled={!canAnalyze || isAnalyzing}
           >
-            {isAnalyzing ? "Analyzing..." : "Analyze with AI"}
+            {isAnalyzing ? t("aiPanel.analyzing") : t("aiPanel.analyzeWithAI")}
           </Button>
         </Box>
 
@@ -81,7 +83,7 @@ export default function AIPanel({ hasImages, onAnalyze }: AIPanelProps) {
         <Box className={styles.section}>
           <Box className={styles.sectionTitle}>
             <AutoAwesomeIcon fontSize="small" color="primary" />
-            <Typography variant="subtitle2">AI Findings</Typography>
+            <Typography variant="subtitle2">{t("aiPanel.aiFindings")}</Typography>
           </Box>
 
           {findings.length > 0 ? (
@@ -101,7 +103,7 @@ export default function AIPanel({ hasImages, onAnalyze }: AIPanelProps) {
             <Box className={styles.emptyState}>
               <AutoAwesomeIcon sx={{ fontSize: 32, mb: 1, opacity: 0.5 }} />
               <Typography variant="body2" color="text.secondary">
-                {hasImages ? "Select exam type and click Analyze" : "Upload images to start analysis"}
+                {hasImages ? t("aiPanel.selectExamType") : t("aiPanel.uploadImages")}
               </Typography>
             </Box>
           )}
