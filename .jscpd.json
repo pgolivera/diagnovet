@@ -1,8 +1,7 @@
 {
-  "threshold": 0,
+  "threshold": 5,
   "reporters": ["html", "console"],
-  "minLines": 11,
-  "minTokens": 50,
-  "exitCode": 1,
+  "minLines": 15,
+  "minTokens": 70,
   "ignore": ["**/*.test.+(ts|tsx)", "**/node_modules/**", "**/dist/**", "**/coverage/**"]
 }

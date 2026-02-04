@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { AppThemeProvider } from "./theme/ThemeContext";
 import { LanguageProvider } from "@i18n";
+import { AuthProvider } from "./auth";
 
 interface WrapperProps {
   children: ReactNode;
@@ -13,9 +14,11 @@ function AllProviders({ children }: WrapperProps) {
   return (
     <AppThemeProvider>
       <LanguageProvider>
-        <HelmetProvider>
-          <BrowserRouter>{children}</BrowserRouter>
-        </HelmetProvider>
+        <AuthProvider>
+          <HelmetProvider>
+            <BrowserRouter>{children}</BrowserRouter>
+          </HelmetProvider>
+        </AuthProvider>
       </LanguageProvider>
     </AppThemeProvider>
   );
@@ -24,7 +27,9 @@ function AllProviders({ children }: WrapperProps) {
 function ProvidersWithMemoryRouter({ children }: WrapperProps) {
   return (
     <AppThemeProvider>
-      <LanguageProvider>{children}</LanguageProvider>
+      <LanguageProvider>
+        <AuthProvider>{children}</AuthProvider>
+      </LanguageProvider>
     </AppThemeProvider>
   );
 }
