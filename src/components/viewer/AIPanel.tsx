@@ -27,9 +27,9 @@ export default function AIPanel({ hasImages, onAnalyze }: AIPanelProps) {
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     const mockFindings: AIFinding[] = [
-      { id: "f1", description: "Normal organ size and echogenicity", organ: "Liver" },
-      { id: "f2", description: "No abnormal fluid collections detected", organ: "Abdomen" },
-      { id: "f3", description: "Regular parenchymal pattern observed", organ: "Spleen" },
+      { id: "f1", description: t("aiPanel.finding1"), organ: t("aiPanel.organ.liver") },
+      { id: "f2", description: t("aiPanel.finding2"), organ: t("aiPanel.organ.abdomen") },
+      { id: "f3", description: t("aiPanel.finding3"), organ: t("aiPanel.organ.spleen") },
     ];
 
     setFindings(mockFindings);

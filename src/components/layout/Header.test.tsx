@@ -1,21 +1,35 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { AppThemeProvider } from "@/theme/ThemeContext";
 import { LanguageProvider } from "@i18n";
+import { AuthProvider } from "@/auth";
 import Header from "./Header";
+
+const MOCK_USER = {
+  id: "user-1",
+  name: "Dr. García",
+  email: "dr.garcia@veterinaria.com",
+  avatar: "https://ui-avatars.com/api/?name=Dr+Garcia&background=2e7d32&color=fff",
+};
 
 const renderHeader = (initialRoute = "/") => {
   return render(
     <AppThemeProvider>
       <LanguageProvider>
-        <MemoryRouter initialEntries={[initialRoute]}>
-          <Header />
-        </MemoryRouter>
+        <AuthProvider>
+          <MemoryRouter initialEntries={[initialRoute]}>
+            <Header />
+          </MemoryRouter>
+        </AuthProvider>
       </LanguageProvider>
     </AppThemeProvider>
   );
 };
+
+beforeEach(() => {
+  localStorage.setItem("diagnovet-auth", JSON.stringify(MOCK_USER));
+});
 
 describe("Header", () => {
   it("renders the logo", () => {

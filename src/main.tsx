@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { AppThemeProvider } from "./theme/ThemeContext";
 import { LanguageProvider } from "@i18n";
+import { AuthProvider } from "./auth";
 import App from "./App";
 import "./styles/index.css";
 
@@ -11,11 +12,13 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AppThemeProvider>
       <LanguageProvider>
-        <HelmetProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </HelmetProvider>
+        <AuthProvider>
+          <HelmetProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </HelmetProvider>
+        </AuthProvider>
       </LanguageProvider>
     </AppThemeProvider>
   </StrictMode>

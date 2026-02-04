@@ -1,6 +1,20 @@
 import { test, expect } from "@playwright/test";
 
+const MOCK_USER = {
+  id: "user-1",
+  name: "Dr. García",
+  email: "dr.garcia@veterinaria.com",
+  avatar: "https://ui-avatars.com/api/?name=Dr+Garcia&background=2e7d32&color=fff",
+};
+
 test.describe("Dashboard Page", () => {
+  test.beforeEach(async ({ page }) => {
+    // Set authenticated user in localStorage before navigating
+    await page.addInitScript((user) => {
+      localStorage.setItem("diagnovet-auth", JSON.stringify(user));
+    }, MOCK_USER);
+  });
+
   test("should display the dashboard content", async ({ page }) => {
     await page.goto("/");
     // Spanish: "Panel de Control", English: "Dashboard", Portuguese: "Painel de Controle"

@@ -47,6 +47,45 @@ The prototype demonstrates how thoughtful UX changes create measurable efficienc
 
 ---
 
+## Features
+
+### Internationalization (i18n)
+
+The application supports three languages with instant switching:
+
+- **Spanish (ES)** - Default language
+- **English (EN)**
+- **Portuguese (PT)**
+
+Language selector is accessible from the header (1-click access). Selection persists in localStorage.
+
+### Authentication
+
+Simulated authentication system for prototyping:
+
+- **Login** with email/password or Google
+- **Sign Up** with registration form
+- **Forgot Password** dialog
+- Protected routes (Dashboard, Viewer)
+- User avatar and logout menu in header
+- Session persistence in localStorage
+
+### Theme Support
+
+Light and dark theme with veterinary green (#2e7d32) as primary color:
+
+- **Light mode** - White background, dark text
+- **Dark mode** - Dark background, light text
+- Theme toggle in header
+- Preference persists in localStorage
+
+### AI Analysis Viewer
+
+- Drag & drop image upload with previews
+- Exam type selection (Abdominal, Cervical, Gestational, Ocular, Thoracic)
+- Simulated AI findings translated to selected language
+- Initial observations text field
+
 ## Tech Stack
 
 - React 19
@@ -152,14 +191,19 @@ yarn build
 
 ```
 src/
+├── auth/           # Authentication context and protected routes
 ├── assets/         # Static assets (images, icons)
 ├── components/     # Reusable components
-│   └── shared/     # Shared components (SEO, WorkInProgress)
+│   ├── auth/       # Auth components (AuthCard, ForgotPassword)
+│   ├── layout/     # Layout components (Header, LanguageSelector)
+│   ├── shared/     # Shared components (SEO, WorkInProgress, icons)
+│   └── viewer/     # Viewer components (AIPanel, ImagePanel)
 ├── hooks/          # Custom React hooks
-├── pages/          # Page components
+├── i18n/           # Internationalization (translations, LanguageContext)
+├── pages/          # Page components (Dashboard, Viewer, Login, SignUp)
 ├── services/       # API services and data fetching
 ├── styles/         # Global styles and CSS variables
-├── theme/          # Material UI theme configuration
+├── theme/          # Material UI theme configuration (ThemeContext)
 ├── types/          # TypeScript type definitions
 ├── utils/          # Utility functions
 ├── App.tsx         # Main app component with routing

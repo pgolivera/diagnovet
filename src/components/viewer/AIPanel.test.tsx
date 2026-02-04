@@ -133,12 +133,14 @@ describe("AIPanel", () => {
 
     await waitFor(
       () => {
-        expect(screen.getByText("Normal organ size and echogenicity")).toBeInTheDocument();
+        // Match translated findings (ES/EN/PT)
+        expect(screen.getByText(/normal.*organ|órgano.*normal|órgão.*normais/i)).toBeInTheDocument();
       },
       { timeout: 3000 }
     );
 
-    expect(screen.getByText("Liver")).toBeInTheDocument();
+    // Match translated organ names (Liver/Hígado/Fígado)
+    expect(screen.getByText(/liver|hígado|fígado/i)).toBeInTheDocument();
   });
 
   it("calls onAnalyze callback after analysis", async () => {
