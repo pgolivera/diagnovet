@@ -1,20 +1,22 @@
 import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
+import { useLanguage } from "@i18n";
 import LanguageSelector from "./LanguageSelector";
 import styles from "./Header.module.css";
 
 interface NavItem {
   path: string;
-  label: string;
+  labelKey: string;
 }
 
 const navItems: NavItem[] = [
-  { path: "/", label: "Dashboard" },
-  { path: "/viewer", label: "Viewer" },
+  { path: "/", labelKey: "nav.dashboard" },
+  { path: "/viewer", labelKey: "nav.viewer" },
 ];
 
 export default function Header() {
   const location = useLocation();
+  const { t } = useLanguage();
 
   return (
     <AppBar position="static" className={styles.header}>
@@ -37,7 +39,7 @@ export default function Header() {
                 borderRadius: 0,
               }}
             >
-              {item.label}
+              {t(item.labelKey)}
             </Button>
           ))}
         </Box>

@@ -3,17 +3,20 @@ import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "@mui/material";
+import { LanguageProvider } from "@i18n";
 import theme from "./theme";
 import App from "./App";
 
 const renderApp = () => {
   return render(
     <ThemeProvider theme={theme}>
-      <HelmetProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </HelmetProvider>
+      <LanguageProvider>
+        <HelmetProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </HelmetProvider>
+      </LanguageProvider>
     </ThemeProvider>
   );
 };
@@ -23,7 +26,7 @@ describe("App", () => {
     vi.stubEnv("NODE_ENV", "development");
     renderApp();
     expect(screen.getByText("DiagnoVet")).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Dashboard" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
   });
 
   it("renders work in progress in production mode", () => {

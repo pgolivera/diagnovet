@@ -8,14 +8,22 @@ import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
 import WarningIcon from "@mui/icons-material/Warning";
 import { SEO } from "@components/shared/seo";
 import { useReports, useReportStats } from "@/hooks";
+import { useLanguage } from "@i18n";
 import type { ReportStatus } from "@/types";
 import styles from "./Dashboard.module.css";
 
-const statusConfig: Record<ReportStatus, { label: string; color: "success" | "warning" | "error" | "info" }> = {
-  completed: { label: "Completed", color: "success" },
-  processing: { label: "Processing", color: "info" },
-  needs_review: { label: "Needs Review", color: "warning" },
-  error: { label: "Error", color: "error" },
+const statusKeys: Record<ReportStatus, string> = {
+  completed: "status.completed",
+  processing: "status.processing",
+  needs_review: "status.needsReview",
+  error: "status.error",
+};
+
+const statusColors: Record<ReportStatus, "success" | "warning" | "error" | "info"> = {
+  completed: "success",
+  processing: "info",
+  needs_review: "warning",
+  error: "error",
 };
 
 interface StatCardConfig {
@@ -23,61 +31,62 @@ interface StatCardConfig {
   icon: ReactNode;
   getValue: (stats: { total: number; completed: number; processing: number; needsReview: number } | null) => number;
   color: string;
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
 }
 
-const statCards: StatCardConfig[] = [
-  {
-    key: "total",
-    icon: <AssignmentIcon className={styles.statIcon} color="primary" />,
-    getValue: (stats) => stats?.total ?? 0,
-    color: "primary",
-    title: "Total Reports",
-    description: "All time reports",
-  },
-  {
-    key: "completed",
-    icon: <CheckCircleIcon className={styles.statIcon} color="success" />,
-    getValue: (stats) => stats?.completed ?? 0,
-    color: "success.main",
-    title: "Completed",
-    description: "Finalized reports",
-  },
-  {
-    key: "processing",
-    icon: <HourglassEmptyIcon className={styles.statIcon} color="info" />,
-    getValue: (stats) => stats?.processing ?? 0,
-    color: "info.main",
-    title: "Processing",
-    description: "In progress",
-  },
-  {
-    key: "needsReview",
-    icon: <WarningIcon className={styles.statIcon} color="warning" />,
-    getValue: (stats) => stats?.needsReview ?? 0,
-    color: "warning.main",
-    title: "Needs Review",
-    description: "Awaiting review",
-  },
-];
-
 export default function Dashboard() {
+  const { t } = useLanguage();
   const { stats, loading: statsLoading } = useReportStats();
   const { reports, loading: reportsLoading } = useReports();
 
   const recentReports = reports.slice(0, 5);
 
+  const statCards: StatCardConfig[] = [
+    {
+      key: "total",
+      icon: <AssignmentIcon className={styles.statIcon} color="primary" />,
+      getValue: (s) => s?.total ?? 0,
+      color: "primary",
+      titleKey: "dashboard.totalReports",
+      descriptionKey: "dashboard.allTimeReports",
+    },
+    {
+      key: "completed",
+      icon: <CheckCircleIcon className={styles.statIcon} color="success" />,
+      getValue: (s) => s?.completed ?? 0,
+      color: "success.main",
+      titleKey: "dashboard.completed",
+      descriptionKey: "dashboard.finalizedReports",
+    },
+    {
+      key: "processing",
+      icon: <HourglassEmptyIcon className={styles.statIcon} color="info" />,
+      getValue: (s) => s?.processing ?? 0,
+      color: "info.main",
+      titleKey: "dashboard.processing",
+      descriptionKey: "dashboard.inProgress",
+    },
+    {
+      key: "needsReview",
+      icon: <WarningIcon className={styles.statIcon} color="warning" />,
+      getValue: (s) => s?.needsReview ?? 0,
+      color: "warning.main",
+      titleKey: "dashboard.needsReview",
+      descriptionKey: "dashboard.awaitingReview",
+    },
+  ];
+
   return (
     <>
-      <SEO title="Dashboard" description="DiagnoVet Dashboard - Manage your veterinary reports" />
+      <SEO title={t("dashboard.title")} description="DiagnoVet Dashboard - Manage your veterinary reports" />
       <Box className={styles.container}>
         <Box className={styles.header}>
           <Typography variant="h4" component="h1">
-            Dashboard
+            {t("dashboard.title")}
           </Typography>
           <Button variant="contained" color="primary" startIcon={<AddIcon />} component={Link} to="/viewer">
-            New Report
+            {t("dashboard.newReport")}
           </Button>
         </Box>
 
@@ -94,10 +103,10 @@ export default function Dashboard() {
                   </Typography>
                 )}
                 <Typography variant="h6" component="div">
-                  {card.title}
+                  {t(card.titleKey)}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {card.description}
+                  {t(card.descriptionKey)}
                 </Typography>
               </CardContent>
             </Card>
@@ -107,7 +116,7 @@ export default function Dashboard() {
         <Card className={styles.recentReports}>
           <CardContent>
             <Typography variant="h6" component="div" gutterBottom>
-              Recent Reports
+              {t("dashboard.recentReports")}
             </Typography>
             {reportsLoading ? (
               <Box className={styles.reportsList}>
@@ -122,20 +131,17 @@ export default function Dashboard() {
                     <Box className={styles.reportInfo}>
                       <Typography variant="subtitle2">{report.patient.name}</Typography>
                       <Typography variant="caption" color="text.secondary">
-                        {report.patient.species} • {report.examType} • {report.veterinarianName}
+                        {t(`species.${report.patient.species}`)} • {t(`examType.${report.examType}`)} •{" "}
+                        {report.veterinarianName}
                       </Typography>
                     </Box>
-                    <Chip
-                      label={statusConfig[report.status].label}
-                      color={statusConfig[report.status].color}
-                      size="small"
-                    />
+                    <Chip label={t(statusKeys[report.status])} color={statusColors[report.status]} size="small" />
                   </Box>
                 ))}
               </Box>
             ) : (
               <Typography variant="body2" color="text.secondary">
-                No reports yet. Create your first report to get started.
+                {t("dashboard.noReports")}
               </Typography>
             )}
           </CardContent>

@@ -1,15 +1,10 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
-import { ThemeProvider } from "@mui/material";
-import theme from "@/theme";
+import { screen, fireEvent } from "@testing-library/react";
+import { renderWithTheme } from "@/test-utils";
 import LanguageSelector from "./LanguageSelector";
 
 const renderLanguageSelector = () => {
-  return render(
-    <ThemeProvider theme={theme}>
-      <LanguageSelector />
-    </ThemeProvider>
-  );
+  return renderWithTheme(<LanguageSelector />);
 };
 
 describe("LanguageSelector", () => {
