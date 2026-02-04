@@ -1,0 +1,54 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.findingsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.findingItem {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 12px;
+  background-color: rgba(79, 172, 254, 0.08);
+  border-radius: 4px;
+  border-left: 3px solid var(--color-primary, #4facfe);
+}
+
+.findingOrgan {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  opacity: 0.6;
+}
+
+.analyzeButton {
+  margin-top: 8px;
+}

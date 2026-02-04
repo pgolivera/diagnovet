@@ -31,7 +31,7 @@ describe("Viewer", () => {
 
     expect(screen.getByText("Images")).toBeInTheDocument();
     expect(screen.getByText("Drop images here or click to upload")).toBeInTheDocument();
-    expect(screen.getByText("Exam Type")).toBeInTheDocument();
+    expect(screen.getByLabelText("Exam Type")).toBeInTheDocument();
   });
 
   it("displays upload instructions in main area", () => {
@@ -40,10 +40,16 @@ describe("Viewer", () => {
     expect(screen.getByText("Drop images here or click to upload")).toBeInTheDocument();
   });
 
-  it("displays exam type section in data panel", () => {
+  it("displays AI panel in data panel", () => {
     renderViewer();
 
-    expect(screen.getByText("Exam Type")).toBeInTheDocument();
-    expect(screen.getByText("Select exam type after uploading images")).toBeInTheDocument();
+    expect(screen.getByText("Exam Configuration")).toBeInTheDocument();
+    expect(screen.getByText("AI Findings")).toBeInTheDocument();
+  });
+
+  it("shows supported formats message", () => {
+    renderViewer();
+
+    expect(screen.getByText("Supported formats: JPEG, PNG, DICOM")).toBeInTheDocument();
   });
 });
