@@ -28,7 +28,7 @@ const renderHeader = (initialRoute = "/") => {
 };
 
 beforeEach(() => {
-  localStorage.setItem("diagnovet-auth", JSON.stringify(MOCK_USER));
+  sessionStorage.setItem("diagnovet-auth", JSON.stringify(MOCK_USER));
 });
 
 describe("Header", () => {
