@@ -9,9 +9,9 @@ const MOCK_USER = {
 
 test.describe("Dashboard Page", () => {
   test.beforeEach(async ({ page }) => {
-    // Set authenticated user in localStorage before navigating
+    // Set authenticated user in sessionStorage before navigating
     await page.addInitScript((user) => {
-      localStorage.setItem("diagnovet-auth", JSON.stringify(user));
+      sessionStorage.setItem("diagnovet-auth", JSON.stringify(user));
     }, MOCK_USER);
   });
 
