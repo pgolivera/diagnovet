@@ -31,7 +31,7 @@ const MOCK_USER: User = {
 
 function getStoredUser(): User | null {
   if (typeof window === "undefined") return null;
-  const stored = localStorage.getItem(STORAGE_KEY);
+  const stored = sessionStorage.getItem(STORAGE_KEY);
   if (stored) {
     try {
       return JSON.parse(stored);
@@ -58,7 +58,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     // Simulate successful Google login
     setUser(MOCK_USER);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(MOCK_USER));
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(MOCK_USER));
     setIsLoading(false);
   }, []);
 
@@ -84,7 +84,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     };
 
     setUser(mockUser);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(mockUser));
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(mockUser));
     setIsLoading(false);
   }, []);
 
@@ -103,13 +103,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
     };
 
     setUser(mockUser);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(mockUser));
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(mockUser));
     setIsLoading(false);
   }, []);
 
   const logout = useCallback(() => {
     setUser(null);
-    localStorage.removeItem(STORAGE_KEY);
+    sessionStorage.removeItem(STORAGE_KEY);
   }, []);
 
   const isAuthenticated = user !== null;

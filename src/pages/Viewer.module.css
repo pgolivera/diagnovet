@@ -103,3 +103,41 @@
 .dataPanel {
   height: 100%;
 }
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+    min-height: calc(100vh - 120px);
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .thumbnailList {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .thumbnailGrid {
+    flex-direction: row;
+    padding: var(--spacing-sm);
+  }
+
+  .thumbnail {
+    width: 80px;
+    min-width: 80px;
+  }
+
+  .mainArea {
+    min-height: 300px;
+  }
+
+  .panel {
+    width: 100%;
+  }
+}
